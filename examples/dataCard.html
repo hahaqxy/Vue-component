@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DataCard组件测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../lib/hxvue.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/hxvue.umd.js"></script>
+    <script src="../node_modules/mockjs/dist/mock.js"></script>
+
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but
+        <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+    <div id="app">
+        <hxvue-data-card :option="option"></hxvue-data-card>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: function () {
+            return {
+                option: {
+                    span: 8,
+                    data: [
+                        {
+                            click: function (item) {
+                                alert(JSON.stringify(item));
+                            },
+                            name: "小马",
+                            src: "./images/card-1.jpg",
+                            href: "https://avuejs.com",
+                            text: "腾讯游戏,腾讯游戏",
+                            target: "_blank"
+                        },
+                        {
+                            click: function (item) {
+                                alert(JSON.stringify(item));
+                            },
+                            name: '网易掌门人',
+                            src: './images/card-3.jpg',
+                            text: '网易游戏,网易游戏',
+                            href:'https://avuejs.com',
+                            target:'_blank'
+                        },
+                        {
+                            click: function (item) {
+                                alert(JSON.stringify(item));
+                            },
+                            name: '桐谷和人',
+                            src: './images/card-4.jpg',
+                            text: '没有我开不了的挂',
+                            href:'https://avuejs.com',
+                            target:'_blank'
+                        }
+                    ]
+                }
+            }
+        }
+    })
+</script>
+</html>

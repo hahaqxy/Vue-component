@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>卡片例子</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../lib/hxvue.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/hxvue.umd.js"></script>
+    <script src="../node_modules/mockjs/dist/mock.js"></script>
+    <script src="https://unpkg.com/vue-infinite-scroll"></script>
+
+    <style type="text/css">
+        body {
+            background-color: #e8eeec;
+            font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+        }
+    </style>
+</head>
+
+<body>
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+
+<div id="app" v-infinite-scroll="loadNextData" infinite-scroll-disabled="busy">
+    <h2>结合无限加载模式的两种标签卡片演示</h2>
+    <HR color=#987cb9 SIZE=3 />
+    <div style="display: flex;">
+        <hxvue-cardtext :option="similarityOption" style="margin-right: 100px;"></hxvue-cardtext>
+        <hxvue-cardtext :option="textOption"></hxvue-cardtext>
+    </div>
+</div>
+
+</body>
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                similarityOption: {
+                    cardSpan: 12,
+                    cardType: "similarityText",
+                    data: [],
+                    gotoWebClick: function (item, index) {
+                        console.log(index);
+                        item.viewNum++;
+                    },
+                    authorClick: function (item, index) {
+                        this.$message.success("点击了上传者头像！");
+                        console.log(JSON.stringify(item));
+                    },
+                    iconLoveClick: function (item, index) {
+                        this.$message.success("点击了收藏键！");
+                        item.likeNum++;
+                        console.log(JSON.stringify(item));
+                    }
+                },
+                textOption: {
+                    cardSpan: 12,
+                    cardType: "cardText",
+                    data: [],
+                    gotoWebClick: function (item, index) {
+                        console.log(index);
+                        item.viewNum++;
+                    },
+                    authorClick: function (item, index) {
+                        this.$message.success("点击了上传者头像！");
+                        console.log(JSON.stringify(item));
+                    },
+                    iconLoveClick: function (item, index) {
+                        this.$message.success("点击了收藏键！");
+                        item.likeNum++;
+                        console.log(JSON.stringify(item));
+                    }
+                },
+            }
+        },
+        methods: {
+            loadNextData() {
+                this.$message.success("开始加载新的测试数据");
+                this.busy = true;
+                loadData(this.similarityOption.data);
+                loadData(this.textOption.data);
+                this.busy = false;
+            }
+        }
+    })
+    function loadData(demoData,demoDataNum=60) {
+        const base = parseInt((Math.random() * 60), 10) + 10;
+        for (let i = 0; i < demoDataNum; i++) {
+            let likeNum = Mock.mock('@integer(1, 100)');
+            let viewNum = Mock.mock('@integer(1000, 2000)');
+            demoData.push({
+                href: "http://www.163.com",
+                target: '_blank',
+                logoUrl: `https://picsum.photos/id/${base + i}/300/200`,
+                title: Mock.mock('@ctitle(3, 30)'),
+                content: Mock.mock('@cparagraph'),
+                authorUrl: `https://picsum.photos/id/${base + i}/300/200`,
+                likeNum: `${likeNum}`,
+                viewNum: `${viewNum}`
+            })
+        }
+    }
+</script>
+
+</html>
