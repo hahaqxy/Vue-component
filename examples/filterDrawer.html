@@ -26,16 +26,15 @@
 </head>
 <body>
     <div id="app">
-        <hxvue-filter-drawer>
-            <!--Hello world-->
-            <div slot="sort">
+        <hxvue-filter-drawer :option="option">
+            <template v-slot:sort>
                 <div class="title">排序方式</div>
                 <ul class="list">
-                    <li v-for="item in list">
-                        {{item}}
+                    <li v-for="item in data">
+                        {{item.text}}
                     </li>
                 </ul>
-            </div>
+            </template>
         </hxvue-filter-drawer>
     </div>
 </body>
@@ -44,13 +43,25 @@
         el: '#app',
         data: function() {
             return {
-                list: [
-                    "最佳匹配",
-                    "最新上线",
-                        "最热"
-                ]
+                data: [],
+                option: {
+                    drawerWidth: "265px",
+                    drawerHeight: "800px",
+                    backgroundColor: "#353838",
+                    buttonWidth: "180px"
+                }
             }
+        },
+        created() {
+            loadData(this.data);
         }
     })
+    function loadData(demoData,demoDataNum=6) {
+        for (let i = 0; i < demoDataNum; i++) {
+            demoData.push({
+                text: Mock.mock('@csentence(3, 5)')
+            })
+        }
+    }
 </script>
 </html>

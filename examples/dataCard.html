@@ -31,41 +31,28 @@
             return {
                 option: {
                     span: 8,
-                    data: [
-                        {
-                            click: function (item) {
-                                alert(JSON.stringify(item));
-                            },
-                            name: "小马",
-                            src: "./images/card-1.jpg",
-                            href: "https://avuejs.com",
-                            text: "腾讯游戏,腾讯游戏",
-                            target: "_blank"
-                        },
-                        {
-                            click: function (item) {
-                                alert(JSON.stringify(item));
-                            },
-                            name: '网易掌门人',
-                            src: './images/card-3.jpg',
-                            text: '网易游戏,网易游戏',
-                            href:'https://avuejs.com',
-                            target:'_blank'
-                        },
-                        {
-                            click: function (item) {
-                                alert(JSON.stringify(item));
-                            },
-                            name: '桐谷和人',
-                            src: './images/card-4.jpg',
-                            text: '没有我开不了的挂',
-                            href:'https://avuejs.com',
-                            target:'_blank'
-                        }
-                    ]
+                    data: [],
+                    itemClick: function (item, index) {
+                        console.log(index, JSON.stringify(item));
+                    }
                 }
             }
+        },
+        created() {
+            loadData(this.option.data);
         }
     })
+    function loadData(demoData,demoDataNum=3) {
+        const base = parseInt((Math.random() * 60), 10) + 10;
+        for (let i = 0; i < demoDataNum; i++) {
+            demoData.push({
+                href: "https://avuejs.com",
+                target: '_blank',
+                src: `https://picsum.photos/id/${base + i}/300/440`,
+                name: Mock.mock('@cname()'),
+                text: Mock.mock('@csentence()')
+            })
+        }
+    }
 </script>
 </html>
