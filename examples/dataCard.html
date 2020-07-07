@@ -20,7 +20,7 @@
         Please enable it to continue.</strong>
 </noscript>
     <div id="app">
-        <hxvue-data-card :option="option"></hxvue-data-card>
+        <hxvue-data-card :option="option" @card-click="cardClick"></hxvue-data-card>
     </div>
 </body>
 
@@ -32,10 +32,16 @@
                 option: {
                     span: 8,
                     data: [],
-                    itemClick: function (item, index) {
-                        console.log(index, JSON.stringify(item));
-                    }
+                    // itemClick: function (item, index) {
+                    //     console.log(index, JSON.stringify(item));
+                    // }
                 }
+            }
+        },
+        methods: {
+            cardClick: function(item, index) {
+                this.$message.success("图片点击后内部插件放大查看");
+                console.log(index, JSON.stringify(item));
             }
         },
         created() {

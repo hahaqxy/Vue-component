@@ -12,7 +12,7 @@
                     <a
                             :href="item.href ? item.href : 'javascript:void(0);'"
                             :target="item.target"
-                            @click="itemClick ? itemClick(item, index) : ''"
+                            @click="handleClick(item, index)"
                     >
                         <img :class="bemCss('itemImg')" :src="item.src" />
                         <div :class="bemCss('itemText')" :style="{ backgroundColor: bgText, color: colorText }">
@@ -32,7 +32,7 @@
         name: "data-card",
         data: function() {
             return {
-                itemClick: this.option.itemClick
+                // itemClick: this.option.itemClick
             };
         },
         props: {
@@ -53,6 +53,11 @@
             },
             colorText: function() {
                 return this.option.colorText || "#fff";
+            }
+        },
+        methods: {
+            handleClick(item, index) {
+                this.$emit('card-click', item, index);
             }
         }
     });
