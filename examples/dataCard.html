@@ -30,11 +30,8 @@
         data: function () {
             return {
                 option: {
-                    span: 8,
-                    data: [],
-                    // itemClick: function (item, index) {
-                    //     console.log(index, JSON.stringify(item));
-                    // }
+                    cardSpan: 5,
+                    data: []
                 }
             }
         },
@@ -48,7 +45,7 @@
             loadData(this.option.data);
         }
     })
-    function loadData(demoData,demoDataNum=3) {
+    function loadData(demoData,demoDataNum=15) {
         const base = parseInt((Math.random() * 60), 10) + 10;
         for (let i = 0; i < demoDataNum; i++) {
             demoData.push({

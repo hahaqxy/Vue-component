@@ -16,7 +16,7 @@
           backgroundColor: backgroundColor
         }"
             >
-                <slot :name="slotName"></slot>
+                <slot name="sort"></slot>
             </div>
         </transition>
     </div>
@@ -29,8 +29,7 @@
         name: "filter-drawer",
         data() {
             return {
-                visible: false,
-                slotName: "sort",
+                visible: false
             };
         },
         props: {

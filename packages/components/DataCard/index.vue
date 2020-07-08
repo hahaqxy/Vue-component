@@ -1,10 +1,12 @@
 <template>
-    <div :class="bemCss()">
-        <el-row :span="24">
+    <div :class="bemCss()" :style="{ width: setPx(pageWidth) }">
+        <el-row :gutter="gutter">
             <el-col
-                    :xs="24"
-                    :sm="12"
-                    :md="span"
+                    :class="computedClass"
+                    :xl="cardSpan"
+                    :lg="6"
+                    :md="8"
+                    :xs="12"
                     v-for="(item, index) in data"
                     :key="index"
             >
@@ -14,7 +16,13 @@
                             :target="item.target"
                             @click="handleClick(item, index)"
                     >
-                        <img :class="bemCss('itemImg')" :src="item.src" />
+                        <img
+                                :class="bemCss('itemImg')"
+                                :src="item.src"
+                                width="100%"
+                                :height="setPx(imgHeight)"
+                                :object-fit="fitModel"
+                        />
                         <div :class="bemCss('itemText')" :style="{ backgroundColor: bgText, color: colorText }">
                             <h3>{{ item.name }}</h3>
                             <p>{{ item.text }}</p>
@@ -32,7 +40,10 @@
         name: "data-card",
         data: function() {
             return {
-                // itemClick: this.option.itemClick
+                gutter: this.option.gutter || 6,
+                cardSpan: this.option.cardSpan || 4,
+                imgHeight: this.option.imgHeight || 340,
+                fitModel: this.option.fitModel || "fill"
             };
         },
         props: {
@@ -42,8 +53,11 @@
             }
         },
         computed: {
-            span: function() {
-                return this.option.span || 6;
+            computedClass() {
+                return { "el-col-4-8": 5 === this.option.cardSpan };
+            },
+            pageWidth() {
+                return this.option.pageWidth || "80%";
             },
             data: function() {
                 return this.option.data || [];
@@ -65,12 +79,14 @@
 
 <style scoped lang="scss">
     $height: 340px;
+    .el-col-4-8 {
+        width: 20%;
+    }
     .hxvue-data-card {
+        margin: 0 auto;
         &__item {
             position: relative;
-            margin: 0 auto;
-            margin-bottom: 50px;
-            width: 230px;
+            margin-bottom: 6px;
             height: $height;
             overflow: hidden;
             border: 1px solid #fff;
