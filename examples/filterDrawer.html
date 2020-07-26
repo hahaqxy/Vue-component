@@ -15,6 +15,7 @@
         body {
             background-color: #e8eeec;
             font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+            margin: 0;
         }
         .title {
             font-size: 20px;
@@ -26,6 +27,8 @@
 </head>
 <body>
     <div id="app">
+        <span>标签卡片演示</span>
+        <HR color="#987cb9" SIZE=3 />
         <hxvue-filter-drawer :option="option">
             <template v-slot:sort>
                 <div class="title">排序方式</div>

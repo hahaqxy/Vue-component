@@ -57,6 +57,7 @@
               "primary"
       );
       this.$HxVueWatermark({ text: "组件版本：" + this.$HxVueVersion });
+
     }
   };
 </script>

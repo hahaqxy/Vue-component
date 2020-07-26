@@ -66,13 +66,13 @@
     $time: 0.2s;
     $fontColor: #fff;
     @mixin positionInfo(
-        $top: 0%,
-        $left: 0%,
+        $top: 0,
+        $left: 0,
         $width: 100%,
         $height: 100%,
         $isWidthAndHeight: true
     ) {
-        position: fixed;
+        position: absolute;
         top: $top;
         left: $left;
         z-index: 1000;
@@ -91,7 +91,9 @@
     }
 
     .hxvue-filter-drawer {
+        height: 980px;
         color: $fontColor;
+        position: relative;
 
         &__filter_button {
             @include positionInfo(0, 0, 100%, 70px);
@@ -106,7 +108,7 @@
         }
 
         &__wrapper {
-            @include positionInfo(71px, 0%, 0%, 100%);
+            @include positionInfo(71px, 0, 0%, 100%);
             padding: 30px 20px 20px 40px;
             box-sizing: border-box;
         }

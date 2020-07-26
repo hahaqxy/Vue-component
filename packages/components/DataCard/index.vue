@@ -10,19 +10,21 @@
                     v-for="(item, index) in data"
                     :key="index"
             >
-                <div :class="bemCss('item')">
+                <div :class="bemCss('item')" :style="{ marginBottom: setPx(gutter) }">
                     <a
                             :href="item.href ? item.href : 'javascript:void(0);'"
                             :target="item.target"
                             @click="handleClick(item, index)"
                     >
-                        <img
-                                :class="bemCss('itemImg')"
-                                :src="item.src"
-                                width="100%"
-                                :height="setPx(imgHeight)"
-                                :object-fit="fitModel"
-                        />
+                        <div :style="{ height: setPx(imgHeight) }">
+                            <img
+                                    :class="bemCss('itemImg')"
+                                    :src="item.src"
+                                    width="100%"
+                                    :height="setPx(imgHeight)"
+                                    :object-fit="fitModel"
+                            />
+                        </div>
                         <div :class="bemCss('itemText')" :style="{ backgroundColor: bgText, color: colorText }">
                             <h3>{{ item.name }}</h3>
                             <p>{{ item.text }}</p>
@@ -78,7 +80,6 @@
 </script>
 
 <style scoped lang="scss">
-    $height: 340px;
     .el-col-4-8 {
         width: 20%;
     }
@@ -86,35 +87,26 @@
         margin: 0 auto;
         &__item {
             position: relative;
-            margin-bottom: 6px;
-            height: $height;
             overflow: hidden;
             border: 1px solid #fff;
             border-radius: 5px;
             &:hover .hxvue-data-card__itemText {
              top: 0;
-         }
-        }
-        &__itemImg {
-            width: 100%;
-            border-radius: 5px 5px 0 0;
+             bottom: 0;
+            }
         }
         &__itemText {
             position: absolute;
-            top: 150px;
+            top: 60%;
             padding: 20px 15px;
-            width: 100%;
-            height: $height;
-            overflow: auto;
             box-sizing: border-box;
-            border-radius: 0 0 5px 5px;
-            opacity: 0.9;
+            opacity: 0.7;
             transition: top 0.4s;
             p {
              font-size: 16px;
              line-height: 25px;
              text-indent: 2em;
-         }
+            }
         }
     }
 </style>
