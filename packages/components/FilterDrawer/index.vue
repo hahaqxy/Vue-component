@@ -11,9 +11,9 @@
                     :class="bemCss('wrapper')"
                     v-if="visible"
                     :style="{
-          width: drawerWidth,
-          height: drawerHeight,
-          backgroundColor: backgroundColor
+                    width: drawerWidth,
+                    height: drawerHeight,
+                    backgroundColor: backgroundColor
         }"
             >
                 <slot name="sort"></slot>
@@ -91,9 +91,12 @@
     }
 
     .hxvue-filter-drawer {
+        width: 265px;
         height: 980px;
         color: $fontColor;
-        position: relative;
+        //position: relative;
+        position: absolute;
+        left: 0;
 
         &__filter_button {
             @include positionInfo(0, 0, 100%, 70px);

@@ -29,11 +29,9 @@ module.exports = {
     config.module
       .rule("svg-sprite-loader")
       .test(/\.svg$/)
-      // .test(/\.css$/)
       .include.add(resolve("src/icons"))
       .end()
       .use("svg-sprite-loader")
-      // .use(['style-loader', 'css-loader', 'sass-loader'])
       .loader("svg-sprite-loader")
       .options({
         symbolId: "icon-[name]"

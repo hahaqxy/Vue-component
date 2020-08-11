@@ -13,6 +13,8 @@ import Search from "./components/Search";
 import WaterFall from "./components/WaterFall";
 import FilterDrawer from "./components/FilterDrawer";
 import DataCard from "./components/DataCard";
+import Table from "./components/Table";
+import SideBar from "./components/SideBar";
 
 // 组件版本号
 const $HxVueVersion = "Ver 1.0.0";
@@ -37,7 +39,9 @@ const components = [
   Search,
   WaterFall,
   FilterDrawer,
-  DataCard
+  DataCard,
+  Table,
+  SideBar
 ];
 
 // 定义全局的API
