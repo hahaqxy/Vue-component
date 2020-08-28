@@ -1,16 +1,18 @@
 <template>
     <div :class="bemCss()">
-        <el-scrollbar wrapClass="scrollbar-wrapper">
+        <logo :option="option"></logo>
+        <el-scrollbar :class="scrollbarWrapperClass">
             <el-menu mode="vertical"
             :background-color="backgroundColor"
             :text-color="textColor"
             :active-text-color="activeTextColor"
             :collapse="isCollapse"
-            default-active="1"
-            @open="handleOpen" @close="handleClose"
-            :class="bemCss('el-menu-vertical-setting')"
+            :default-active="defaultActive"
+            @select="menuClick"
+            :class="bemCss('el-menu')"
+            :style="elMenuStyle"
             >
-                <sidebar-item :menuData="menuData" :isCollapse="isCollapse"></sidebar-item>
+                <sidebar-item :menuData="menuData"></sidebar-item>
             </el-menu>
 
         </el-scrollbar>
@@ -18,86 +20,87 @@
 </template>
 <script>
     import create from "../../core/create";
-    import SidebarItem from './SidebarItem'
+    import SidebarItem from './SidebarItem';
+    import logo from './logo'
 
     export default create({
         name: "side-bar",
         components: {
-            SidebarItem
+            SidebarItem,
+            logo
         },
         props: {
-            backgroundColor: {
-                type: String,
+            option: {
+                type: Object,
                 default() {
-                    return '#304156'
-                }
-            },
-            textColor: {
-                type: String,
-                default() {
-                    return '#fff'
-                }
-            },
-            activeTextColor: {
-                type: String,
-                default() {
-                    return '#ffd04b'
-                }
-            },
-            isCollapse: {
-                type: Boolean,
-                default() {
-                    return true
+                    return {};
                 }
             },
             menuData: {
                 type: Array,
                 default() {
-                    return []
+                    return [];
                 }
             }
         },
-        methods: {
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
+        computed: {
+            backgroundColor() {
+                return this.option.backgroundColor || "#304156";
             },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
+            textColor() {
+                return this.option.textColor || "#fff";
+            },
+            activeTextColor() {
+                return this.option.activeTextColor || "#ffd04b";
+            },
+            isCollapse() {
+                return this.option.isCollapse || false;
+            },
+            elMenuStyle() {
+                return this.option.elMenuStyle || { height: "100%" };
+            },
+            scrollbarWrapperClass() {
+                return this.option.scrollbarWrapperClass || "elScrollbarClass";
+            },
+            defaultActive() {
+                return this.option.defaultActive || "";
+            }
+        },
+        methods: {
+            menuClick(index, indexPath) {
+                this.$emit("menu-click", index, indexPath);
             }
         }
     })
 </script>
 
-<style lang="scss">
-    $sideBarWidth: 210px;
+<style scoped lang="scss">
     .hxvue-side-bar {
-        &__el-menu-vertical-setting:not(.el-menu--collapse) {
-            width: $sideBarWidth;
+        &__el-menu {
+            &:not(.el-menu--collapse) {
+                width: 200px;
+            }
         }
-        &__el-menu-vertical-setting {
-            height: 100%;
-        }
-        .el-scrollbar {
+        .elScrollbarClass {
             height: 100%;
             position: fixed;
-            top: 0;
-            bottom: 0;
+            top: 64px;
             left: 0;
         }
-        .el-scrollbar__wrap {
+        >>> .el-scrollbar__wrap {
             overflow-x: hidden;
         }
-
-        .el-scrollbar__view {
+        >>> .el-scrollbar__view {
             height: 100%;
         }
-    }
-    /*隐藏文字*/
-    .el-menu--collapse .el-submenu>.el-submenu__title span{
-        display: none;
-    }
-    /*隐藏 > */
-    .el-menu--collapse .el-submenu>.el-submenu__title .el-submenu__icon-arrow{
-        display: none;
+        /*隐藏文字*/
+        >>> .el-menu--collapse .el-submenu__title span {
+            display: none;
+        }
+        /*隐藏 > */
+        >>> .el-menu--collapse .el-submenu__title .el-submenu__icon-arrow {
+            display: none;
+        }
     }
 </style>
+

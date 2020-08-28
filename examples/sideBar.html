@@ -14,7 +14,7 @@
 
     <style type="text/css">
         .main-container {
-            margin-left: 210px;
+            margin-left: 200px;
             transition: margin-left 0.3s;
         }
         .svg-container {
@@ -32,7 +32,14 @@
             transform: rotate(180deg);
         }
         .hideSidebar .main-container {
-            margin-left: 56px;
+            /*margin-left: 56px;*/
+            margin-left: 64px;
+        }
+        .scrollbarClass {
+            height: 100%;
+            position: fixed;
+            top: 64px;
+            left: 0;
         }
     </style>
 
@@ -44,18 +51,15 @@
         Please enable it to continue.</strong>
 </noscript>
 <div id="app">
+    <!--<span>侧边菜单栏组件演示</span>-->
+    <!--<HR color=#987cb9 SIZE=3 />-->
     <div :class="classObj">
-        <hxvue-side-bar :background-color="backgroundColor"
-                        :text-color="textColor" :active-textColor="activeTextColor"
-                        :is-collapse="isCollapse"
-                        :menu-data="menuData"
-        >
-        </hxvue-side-bar>
+        <hxvue-side-bar :option="option" :menu-data="menuData" @menu-click="menuClick"></hxvue-side-bar>
         <div class="main-container">
             <div class="svg-container">
                 <svg
-                        @click="toggleCollapse"
-                        :class="{'is-active':isCollapse}"
+                        @click="menuClick('1', '1')"
+                        :class="{'is-active':option.isCollapse}"
                         class="hamburger"
                         viewBox="0 0 1024 1024"
                         xmlns="http://www.w3.org/2000/svg"
@@ -76,20 +80,34 @@
         el: "#app",
         data: function () {
             return {
-                backgroundColor: "#304156",
-                textColor: "#fff",
-                activeTextColor: "#ffd04b",
-                isCollapse: true,
+                option: {
+                    backgroundColor: "#304156",
+                    textColor: "#fff",
+                    activeTextColor: "#ffd04b",
+                    isCollapse: false,
+                    elMenuStyle: {
+                        height: "100%",
+                        // margin: "10px"
+                    },
+                    scrollbarWrapperClass: "scrollbarClass",
+                    defaultActive: "12",
+                    logo: "A",
+                    indexTitle: '后台快速开发模版'
+                },
                 menuData: [
                     {
                         "id": '1',
                         "menu_name": "首页",
-                        "icon": 'el-icon-s-home'
+                        "icon": 'el-icon-s-home',
+                        "iconSize": '20px',
+                        "fontSize": '16px'
                     },
                     {
                         "id": '2',
                         "menu_name": "嵌套路由",
                         "icon": 'el-icon-menu',
+                        "iconSize": '20px',
+                        "fontSize": '16px',
                         "node": [{
                             "id": '3',
                             "menu_name": "菜单 1",
@@ -147,13 +165,17 @@
         computed: {
             classObj() {
                 return {
-                    hideSidebar: this.isCollapse,
+                    hideSidebar: this.option.isCollapse,
                 }
             }
         },
         methods: {
-            toggleCollapse() {
-                this.isCollapse = ! this.isCollapse
+            menuClick(index, indexPath){
+                if("1" === index)
+                {
+                    this.option.isCollapse = ! this.option.isCollapse;
+                }
+                console.log("menuClick=" + index +"," + indexPath);
             }
         }
     })
